@@ -1,100 +1,148 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: Arial, sans-serif;
+    background-color:#f5f7fb;;
+    color: #222;
+}
 .container{
-    max-width:900px;
-    width:100%;
-    margin:auto;
-    padding:10px;
-    border-radius:15px;
-}
-nav{
-    display:flex;
-    justify-content:space-between;
-    position:sticky;
-    top:10px;
+    max-width:1200px;
+    width:80%;
+    margin:30px auto;
+    padding:25px;
+    border:1px solid rgb(239, 243, 244);
     background-color:white;
-    z-index:100;
-}
-nav h2{
-    padding:10px;
-    margin-top:0;
-}
-.links {
-    display:flex;
-    gap:20px;
-}
-.links a{
-    margin-top:14px;
-    text-decoration:none;
-    color:black;
-    transition:0.3s;
-}
-.links a:hover{
-    transform:scale(1.05);
-    color:blue;
-}
-header{
-    text-align:center;
-    padding:60px 20px;
-    background:#f8fafc;
-}
-button{
-    border:none;
-    padding:10px;
     border-radius:15px;
-    cursor:pointer;
-    transition:.3s ease;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
 }
-button:hover{
-    background-color:black;
-    color:white;
-    transform:scale(1.05);
+h1{
+    text-align:center;
+    font-size:42px;
+    margin-bottom:25px;
+}
+#inputText{
+    width:80%;
+    padding:15px;
+    border-radius:10px;
+    padding:10px;
+    outline:none;
+    border:2px solid #ddd;
+    font-size:16px;
+}
+#searchBtn{
+    width:10%;
+    padding:15px;
+    border-radius:10px;
+    padding:10px;
+    font-size:16px;
+    border: none;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+}
+#searchBtn:hover {
+    background-color: darkblue;
+}
+#prodCard{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+    width:100%;
+    margin-top:30px;
 }
 .cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
-.card{
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:20px;
     text-align:center;
-    border:1px solid black;
-    padding:10px;
-    border-radius:12px;
-    transition:0.3s;
+    background-color:white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
 }
-.card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 8px 20px rgba(0,0,0,.2);
+.cards:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
-img{
-    width:100%;
-    object-fit:cover;
-    border-radius:12px;
+.prodImg{
+    width:200px;
+    height:200px;
+    object-fit:contain;
+    margin-bottom:15px;
 }
-.comment{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
+.prodName{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:8px;
 }
-.comment div{
-    border:1px solid black;
-    max-width:200px;
-    width:90%;
-    border-radius:15px;
-    padding:10px;
-    margin:10px;
+.prodPrice {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
 }
-.foot{
-    display:flex;
-    justify-content:center;
-    gap:30px;
-    margin:20px;
-    border-top:1px solid #ddd;
+
+.prodCat {
+    color: #666;
+    margin-bottom: 15px;
 }
-.foot a{
-    text-decoration:none;
-    color:black;
-    transition:0.3s;
+.cartBtn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: #111;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
 }
-.foot a:hover{
-    color:blue;
-    transform:scale(1.2);
+
+.cartBtn:hover {
+    background-color: #333;
+}
+@media (max-width: 800px) {
+    #prodCard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #inputText {
+        width: 60%;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 550px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    #inputText {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #searchBtn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #categoryFilter {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    #prodCard {
+        grid-template-columns: 1fr;
+    }
+
+    .prodImg {
+        width: 160px;
+        height: 160px;
+    }
 }
