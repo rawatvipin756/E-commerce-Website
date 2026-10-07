@@ -2,6 +2,7 @@ let inputText=document.getElementById("inputText");
 let searchBtn=document.getElementById("searchBtn");
 let catFilter = document.getElementById("catFilter");
 let prodCard=document.getElementById("prodCard");
+let cartSection = document.getElementById("cartSection");
 
 let cart=[];
 let products = [
@@ -31,7 +32,7 @@ let products = [
     }
 ];
 
-function displayprod(products){
+function displayProd(products){
     products.forEach((product)=> {
     let card=document.createElement("div");
     card.className="cards";
@@ -51,6 +52,11 @@ function displayprod(products){
     addCart.innerText="Add To Cart";
     addCart.className="cartBtn";
 
+    addCart.addEventListener("click",()=> {
+        cart.push(product);
+        console.log(cart);
+    });
+
     card.appendChild(img);
     card.appendChild(name);
     card.appendChild(price);
@@ -60,6 +66,13 @@ function displayprod(products){
 });   
 }
 
+function displayCart() {
+    cart.forEach((product)=> {
+        let cartItem=document.createElement("div");
+        cartItem.className="cartitem";
+    });
+}
+
 searchBtn.addEventListener("click",()=> {
     let input=inputText.value;
     let prodFilter = products.filter((product) => {
@@ -67,7 +80,7 @@ searchBtn.addEventListener("click",()=> {
     });
     prodCard.innerHTML = "";
     console.log(prodFilter);
-    displayprod(prodFilter);
+    displayProd(prodFilter);
 });
 
 catFilter.addEventListener("change", () => {
@@ -80,7 +93,7 @@ catFilter.addEventListener("change", () => {
     });
     prodCard.innerHTML = "";
     console.log(prodFilter);
-    displayprod(prodFilter);
+    displayProd(prodFilter);
 });
 
-displayprod(products);
+displayProd(products);
