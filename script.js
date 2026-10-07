@@ -1,7 +1,9 @@
-let prodCard=document.getElementById("prodCard");
 let inputText=document.getElementById("inputText");
 let searchBtn=document.getElementById("searchBtn");
+let catFilter = document.getElementById("catFilter");
+let prodCard=document.getElementById("prodCard");
 
+let cart=[];
 let products = [
     {
         name: "Nike",
@@ -29,7 +31,8 @@ let products = [
     }
 ];
 
-products.forEach((product)=> {
+function displayprod(products){
+    products.forEach((product)=> {
     let card=document.createElement("div");
     card.className="cards";
     let img=document.createElement("img");
@@ -54,7 +57,8 @@ products.forEach((product)=> {
     card.appendChild(category);
     card.appendChild(addCart);
     prodCard.appendChild(card);
-});
+});   
+}
 
 searchBtn.addEventListener("click",()=> {
     let input=inputText.value;
@@ -63,30 +67,20 @@ searchBtn.addEventListener("click",()=> {
     });
     prodCard.innerHTML = "";
     console.log(prodFilter);
-    prodFilter.forEach((product)=> {
-        let card=document.createElement("div");
-        card.className="cards";
-        let img = document.createElement("img");
-        img.src = product.image;
-        img.className = "prodImg";
-        let name=document.createElement("p");
-        name.className="prodName";
-        name.innerText=product.name;
-        let price=document.createElement("p");
-        price.className="prodPrice"
-        price.innerText=product.price;
-        let category=document.createElement("p");
-        category.className="prodCat";
-        category.innerText=product.category;
-        let addCart=document.createElement("button");
-        addCart.innerText="Add To Cart";
-        addCart.className="cartBtn";
-
-        card.appendChild(img);
-        card.appendChild(name);
-        card.appendChild(price);
-        card.appendChild(category);
-        card.appendChild(addCart);
-        prodCard.appendChild(card);
-        })
+    displayprod(prodFilter);
 });
+
+catFilter.addEventListener("change", () => {
+    let category = catFilter.value;
+    let prodFilter = products.filter((product) => {
+        if(category==="all"){
+        return true;
+        }
+        return category.toLowerCase()==product.category.toLowerCase();
+    });
+    prodCard.innerHTML = "";
+    console.log(prodFilter);
+    displayprod(prodFilter);
+});
+
+displayprod(products);
