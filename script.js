@@ -5,6 +5,7 @@ let prodCard=document.getElementById("prodCard");
 let cartSection = document.getElementById("cartSection");
 
 let cart=[];
+
 let products = [
     {
         name: "Nike",
@@ -33,43 +34,60 @@ let products = [
 ];
 
 function displayProd(products){
+
     products.forEach((product)=> {
+
     let card=document.createElement("div");
     card.className="cards";
+
     let img=document.createElement("img");
     img.src=product.image;
     img.className="prodImg";
+
     let name=document.createElement("p");
     name.className="prodName";
     name.innerText=product.name;
+
     let price=document.createElement("p");
     price.className="prodPrice"
     price.innerText=product.price;
+
     let category=document.createElement("p");
     category.className="prodCat";
     category.innerText=product.category;
+
     let addCart=document.createElement("button");
     addCart.innerText="Add To Cart";
     addCart.className="cartBtn";
 
     addCart.addEventListener("click",()=> {
         let existingProd=cart.find((item)=> item.product===product);
-        cart.push(product);
-        console.log(cart);
-        displayCart();
-    });
+            if(existingProd){
+                existingProd.quantity++;
+            }else{
+                cart.push({
+                    product: product,
+                    quantity: 1
+                });
+            }
+            cart.push(product);
+            console.log(cart);
+            displayCart();
+        });
 
-    card.appendChild(img);
-    card.appendChild(name);
-    card.appendChild(price);
-    card.appendChild(category);
-    card.appendChild(addCart);
-    prodCard.appendChild(card);
-});   
+        card.appendChild(img);
+        card.appendChild(name);
+        card.appendChild(price);
+        card.appendChild(category);
+        card.appendChild(addCart);
+        prodCard.appendChild(card);
+    });   
 }
 
 function displayCart() {
+
     cart.forEach((product)=> {
+
         let cartItem=document.createElement("div");
         cartItem.className="cartitem";
 
@@ -99,7 +117,6 @@ function displayCart() {
             cartSection.innerHTML="";
             displayCart();
         });
-
         cartSection.appendChild(cartItem);
     });
 }
