@@ -5,11 +5,13 @@ let prodCard=document.getElementById("prodCard");
 let cartSection = document.getElementById("cartSection");
 let subTotal=document.getElementById("subtotal");
 let Tax = document.getElementById("tax");
+let Total = document.getElementById("total");
 
 let cart=[];
 
 let subtotal = 0;
 let tax=0;
+let total = 0;
 
 let products = [
     {
@@ -145,14 +147,16 @@ function displayCart() {
             cartSection.innerHTML="";
             displayCart();
         });
-        tax=subTotal*0.05;
-        subTotal.innerText = "Subtotal: ₹" + subtotal;
-        Tax.innerText = "Tax: ₹" + tax;
-        console.log(subtotal);
         cartItem.appendChild(minusBtn);
         cartItem.appendChild(plusBtn);
         cartSection.appendChild(cartItem);
     });
+    tax = subtotal * 0.05;
+    total=subtotal+tax;
+        subTotal.innerText = "Subtotal: ₹" + subtotal;
+        Tax.innerText = "Tax: ₹" + tax;
+        Total.innerText="Total: ₹" + total;
+        console.log(subtotal);
 }
 
 searchBtn.addEventListener("click",()=> {
