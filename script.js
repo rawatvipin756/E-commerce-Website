@@ -3,8 +3,13 @@ let searchBtn=document.getElementById("searchBtn");
 let catFilter = document.getElementById("catFilter");
 let prodCard=document.getElementById("prodCard");
 let cartSection = document.getElementById("cartSection");
+let subTotal=document.getElementById("subtotal");
+let Tax = document.getElementById("tax");
 
 let cart=[];
+
+let subtotal = 0;
+let tax=0;
 
 let products = [
     {
@@ -70,8 +75,6 @@ function displayProd(products){
                     quantity: 1
                 });
             }
-            cart.push(product);
-            console.log(cart);
             displayCart();
         });
 
@@ -86,37 +89,68 @@ function displayProd(products){
 
 function displayCart() {
 
-    cart.forEach((product)=> {
+    cartSection.innerHTML="";
+    subtotal = 0;
+
+    cart.forEach((item)=> {
+
+        subtotal+=item.product.price*item.quantity;
 
         let cartItem=document.createElement("div");
         cartItem.className="cartitem";
 
         let img=document.createElement("img");
-        img.src=product.image;
+        img.src=item.product.image;
         cartItem.appendChild(img);
 
         let name = document.createElement("p");
-        name.innerText = product.name;
+        name.innerText = item.product.name;
         cartItem.appendChild(name);
 
         let price = document.createElement("p");
-        price.innerText=product.price;
+        price.innerText=item.product.price;
         cartItem.appendChild(price);
 
         let quantity=document.createElement("p");
-        quantity.innerText="Quantity : 1";
+        quantity.innerText="Quantity : " + item.quantity;
         cartItem.appendChild(quantity);
 
         let removeBtn=document.createElement("button");
         removeBtn.innerText="Remove";
         cartItem.appendChild(removeBtn);
+
+        let minusBtn=document.createElement("button");
+        minusBtn.innerText="-";
+
+        let plusBtn=document.createElement("button");
+        plusBtn.innerText="+";
+
+        minusBtn.addEventListener("click",()=> {
+            if(item.quantity>1){
+                item.quantity--;
+            }
+            cartSection.innerHTML="";
+            displayCart();
+        });
+
+        plusBtn.addEventListener("click",()=> {
+            item.quantity++;
+            cartSection.innerHTML="";
+            displayCart();
+        });
         
         removeBtn.addEventListener("click",()=> {
-            let index=cart.indexOf(product);
+            let index=cart.indexOf(item);
             cart.splice(index,1);
             cartSection.innerHTML="";
             displayCart();
         });
+        tax=subTotal*0.05;
+        subTotal.innerText = "Subtotal: ₹" + subtotal;
+        Tax.innerText = "Tax: ₹" + tax;
+        console.log(subtotal);
+        cartItem.appendChild(minusBtn);
+        cartItem.appendChild(plusBtn);
         cartSection.appendChild(cartItem);
     });
 }
