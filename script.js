@@ -6,12 +6,15 @@ let cartSection = document.getElementById("cartSection");
 let subTotal=document.getElementById("subtotal");
 let Tax = document.getElementById("tax");
 let Total = document.getElementById("total");
+let cartCount=document.getElementById("cartCount");
+let clearCart=document.getElementById("clearCart");
+let wishList=document.getElementById("wishlistSection");
 
-let cart=[];
-
+let cart=JSON.parse(localStorage.getItem("cart")) || [];
 let subtotal = 0;
 let tax=0;
 let total = 0;
+let wishlist=[];
 
 let products = [
     {
@@ -67,8 +70,21 @@ function displayProd(products){
     addCart.innerText="Add To Cart";
     addCart.className="cartBtn";
 
+    let wishBtn = document.createElement("button"); 
+    wishBtn.innerText = "♡ Wishlist";
+
+    wishBtn.addEventListener("click",()=> {
+        let existingWish=wishlist.find((item)=> item.name==product.name);
+        if(existingWish){
+            // contine;
+        }else{
+            wishlist.push(product);
+        }
+        console.log(wishlist);
+    });
+
     addCart.addEventListener("click",()=> {
-        let existingProd=cart.find((item)=> item.product===product);
+        let existingProd=cart.find((item)=> item.product.name===product.name);
             if(existingProd){
                 existingProd.quantity++;
             }else{
@@ -85,7 +101,9 @@ function displayProd(products){
         card.appendChild(price);
         card.appendChild(category);
         card.appendChild(addCart);
+        card.appendChild(wishBtn);
         prodCard.appendChild(card);
+
     });   
 }
 
@@ -94,8 +112,11 @@ function displayCart() {
     cartSection.innerHTML="";
     subtotal = 0;
 
+    let count=0;
+
     cart.forEach((item)=> {
 
+        count+=item.quantity;
         subtotal+=item.product.price*item.quantity;
 
         let cartItem=document.createElement("div");
@@ -151,12 +172,21 @@ function displayCart() {
         cartItem.appendChild(plusBtn);
         cartSection.appendChild(cartItem);
     });
+
     tax = subtotal * 0.05;
     total=subtotal+tax;
-        subTotal.innerText = "Subtotal: ₹" + subtotal;
-        Tax.innerText = "Tax: ₹" + tax;
-        Total.innerText="Total: ₹" + total;
-        console.log(subtotal);
+    subTotal.innerText = "Subtotal: ₹" + subtotal;
+    Tax.innerText = "Tax: ₹" + tax;
+    Total.innerText="Total: ₹" + total;
+    cartCount.innerText=count;
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function displayWishlist() {
+    wishList.innerHTML="";
+    wishlist.forEach((product)=> {
+        
+    })
 }
 
 searchBtn.addEventListener("click",()=> {
@@ -165,7 +195,6 @@ searchBtn.addEventListener("click",()=> {
         return product.name.toLowerCase().includes(input.toLowerCase());
     });
     prodCard.innerHTML = "";
-    console.log(prodFilter);
     displayProd(prodFilter);
 });
 
@@ -178,8 +207,13 @@ catFilter.addEventListener("change", () => {
         return category.toLowerCase()==product.category.toLowerCase();
     });
     prodCard.innerHTML = "";
-    console.log(prodFilter);
     displayProd(prodFilter);
 });
 
+clearCart.addEventListener("click",()=> {
+    cart.splice(0);
+    displayCart();
+});
+
 displayProd(products);
+displayCart();
