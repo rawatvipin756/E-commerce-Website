@@ -8,7 +8,7 @@ let Tax = document.getElementById("tax");
 let Total = document.getElementById("total");
 let cartCount=document.getElementById("cartCount");
 let clearCart=document.getElementById("clearCart");
-let wishList=document.getElementById("wishlistSection");
+let wishList=document.getElementById("wishList");
 
 let cart=JSON.parse(localStorage.getItem("cart")) || [];
 let subtotal = 0;
@@ -72,6 +72,7 @@ function displayProd(products){
 
     let wishBtn = document.createElement("button"); 
     wishBtn.innerText = "♡ Wishlist";
+    wishBtn.className="wishBtn";
 
     wishBtn.addEventListener("click",()=> {
         let existingWish=wishlist.find((item)=> item.name==product.name);
@@ -228,6 +229,22 @@ catFilter.addEventListener("change", () => {
 clearCart.addEventListener("click",()=> {
     cart.splice(0);
     displayCart();
+});
+
+
+let tabBtns = document.querySelectorAll(".tabBtn");
+let tabContents = document.querySelectorAll(".tabContent");
+tabBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        tabContents.forEach((section) => {
+            section.hidden = true;
+        });
+        tabBtns.forEach((button) => {
+            button.classList.remove("active");
+        });
+        document.getElementById(btn.dataset.tab).hidden = false;
+        btn.classList.add("active");
+    });
 });
 
 displayProd(products);

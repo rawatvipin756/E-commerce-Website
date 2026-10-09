@@ -10,24 +10,40 @@
     <section class="container">
         <header>
             <h1>E-Commerce Website</h1>
+            <nav class="tabs">
+                <button class="tabBtn active" data-tab="shopView">Shop</button>
+                <button class="tabBtn" data-tab="cartView">Cart</button>
+                <button class="tabBtn" data-tab="wishlistView">Wishlist</button>
+            </nav>
         </header>
         <main>
-            <input type="text" id="inputText" placeholder="Enter Product">
-            <button id="searchBtn">Search</button>
-            <select id="catFilter">
-                <option value="all">All</option>
-                <option value="Shoes">Shoes</option>
-                <option value="Shirt">Shirt</option>
-            </select>
-            <section id="prodCard"></section>
-            <h2>Shopping Cart (<span id="cartCount">0</span>)</h2>
-            <section id="cartSection"></section>
-            <p id="subtotal">Subtotal: ₹0</p>
-            <p id="tax">Tax: ₹0</p>
-            <p id="total">Total: ₹0</p>
-            <button id="clearCart">Clear Cart</button>
-            <h2>Wishlist</h2>
-            <section id="wishlistSection"></section>
+            <section id="shopView" class="tabContent">
+                <input type="text" id="inputText" placeholder="Enter Product">
+                <button id="searchBtn">Search</button>
+                <select id="catFilter">
+                    <option value="all">All</option>
+                    <option value="Shoes">Shoes</option>
+                    <option value="Shirt">Shirt</option>
+                </select>
+                <section id="prodCard"></section>
+            </section>
+
+            <section id="cartView" class="tabContent" hidden>
+                <h2>Shopping Cart (<span id="cartCount">0</span>)</h2>
+
+                <section id="cartSection"></section>
+
+                <p id="subtotal">Subtotal: ₹0</p>
+                <p id="tax">Tax: ₹0</p>
+                <p id="total">Total: ₹0</p>
+
+                <button id="clearCart">Clear Cart</button>
+            </section>
+
+            <section id="wishlistView" class="tabContent" hidden>
+                <h2>My Wishlist</h2>
+                <section id="wishList"></section>
+            </section>
         </main>
     </section>
     <script src="script.js"></script>
